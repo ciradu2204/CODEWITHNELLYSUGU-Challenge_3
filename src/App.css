@@ -87,8 +87,8 @@ form  input[type=Number]:focus{
  .Album h2{
   color: #7b9a1b;
   font-weight: bolder;
-   font-size: 40px;
-   padding-left: 90px;
+   font-size: 35px;
+   padding: 10px 90px;
  }
 
 .photo p{

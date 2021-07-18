@@ -11,7 +11,7 @@ const AlbumPhotos = props =>{
    (props.data.length<=0 && !props.loading)?  
     (<StartingMessage/>) : (
         <div className="Album">   
-          <h2>Photos</h2>
+          <h2>PHOTOS OF ID: {props.id}</h2>
             <div className="photos">
             {props.data.map((element, index) =>(
              <div className="photo" key={index}>

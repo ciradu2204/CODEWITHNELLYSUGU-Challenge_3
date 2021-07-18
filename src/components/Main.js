@@ -7,7 +7,8 @@ import Header from "./Header";
 const Main = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
- 
+  const [id, setId] = useState(null);
+
   const fetchData = async(id) =>{
     setIsLoading(!isLoading);
      await fetch("/api/albums/" + id + "/photos")
@@ -24,8 +25,8 @@ const Main = () => {
    return (
    <>
    <Header />
-    <Form onSubmitForm={fetchData} /> 
-    <AlbumPhotos data = {data} loading={isLoading} />
+    <Form onSubmitForm={fetchData} id={setId} /> 
+    <AlbumPhotos data = {data} loading={isLoading}  id={id} />
    </>
     )
 
