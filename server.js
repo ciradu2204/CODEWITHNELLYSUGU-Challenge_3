@@ -1,6 +1,8 @@
 const express = require('express'); 
 const app = express();
 const fetch = require("node-fetch");
+const cors = require('cors');
+const path = require('path');
 let result = {};
 const getData = async(id) =>{
     await fetch("https://jsonplaceholder.typicode.com/albums/" + id + "/photos")
@@ -39,7 +41,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-const path = require('path');
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
