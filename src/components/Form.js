@@ -13,9 +13,11 @@ const Form = props => {
         event.preventDefault();
          if(inputValue >=1 && inputValue<=100){
             setInputValue(inputValue);
+            props.id(inputValue);
             props.onSubmitForm(inputValue);
             setError('');
          }else{
+             props.id('');
             setError("Enter an id between 1 and 100"); 
          }
        
