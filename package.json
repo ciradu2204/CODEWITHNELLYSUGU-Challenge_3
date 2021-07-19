@@ -1,59 +1,50 @@
 {
-  "name": "part2",
+  "name": "challenge_3",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@metamodules/postgres": "^1.2.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
     "babel-eslint": "^10.1.0",
-    "deploy-node-app": "^1.4.3",
-    "dotenv": "^8.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
-  },
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "cross-spawn": "^6.0.5",
-    "eslint": "^5.16.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-flowtype": "2.50.1",
-    "eslint-plugin-import": "2.16.0",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "nodemon": "^1.19.1",
-    "prettier": "^1.17.1"
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:8080",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "deploy-node-app": {
-    "prod": {
-      "port": 4000,
-      "protocol": "http",
-      "entrypoint": "src/api/index.js",
-      "type": "spa"
-    },
-    "dev": {
-      "port": 4000,
-      "protocol": "http",
-      "entrypoint": "src/api/index.js",
-      "registry": "",
-      "type": "spa",
-      "isPublic": false
-    }
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "proxy": "http://localhost:4000"
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "eslint": "^7.31.0"
+  }
 }

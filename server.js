@@ -1,9 +1,16 @@
 const express = require('express'); 
+const {createServer} = require('http');
+const compression = require('compression')
+const morgan = require('morgan')
 const app = express();
 const fetch = require("node-fetch");
-const cors = require('cors');
 const path = require('path');
+const dev = app.get('env') !== 'production'
+const normalisePort = port => parseInt(port, 10);
+const PORT = normalisePort(process.env.PORT || 8080);
+
 let result = {};
+
 const getData = async(id) =>{
     await fetch("https://jsonplaceholder.typicode.com/albums/" + id + "/photos")
     .then((resp) => {return resp.json()})
@@ -26,29 +33,26 @@ app.get('/api/albums/:id/photos', async(req, res) =>{
        res.send(result);
 });
 
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://nameless-harbor-57237.herokuapp.com']
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log("** Origin of request " + origin)
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      console.log("Origin acceptable")
-      callback(null, true)
-    } else {
-      console.log("Origin rejected")
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app.use(cors(corsOptions))
+ 
 
-if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
-// Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+if(!dev){
+  app.disable('x-powered-by')
+  app.use(compression())
+  app.use(morgan('common'))
+
+  app.use(express.static(path.resolve(__dirname, 'build')))
+  app.use('*', (req, res) =>{
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  })
 }
 
-const port = process.env.port || 8080;
-app.listen(port, () => console.log(`Listening on port ${port}..`));
+if(dev){
+  app.use(morgan('dev'))
+}
+
+const server = createServer(app)
+server.listen(PORT, err => {
+ if(err) throw err;
+
+ console.log('Server Started');
+});
